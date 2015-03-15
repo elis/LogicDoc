@@ -4,14 +4,14 @@ title = "First Logic Doc"
 [page]
   lmod = "angular-app"
   content = """
-<div ng-include="'components/navbar/navbar.html'"></div>
+    <div ng-include="'components/navbar/navbar.html'"></div>
     
     <div ui-view>
       This is the first example of a Logic Document.
       It uses TOML as the storage medium of the raw document.
       <a href="/ldoc/test/">Ttest</a>
     </div>
-    """
+  """
   js = """
     console.log('Are we there yet?');
     """
@@ -23,3 +23,4 @@ title = "First Logic Doc"
       <a href="/ldoc">back</a>
       """
     url = "/test/"
+

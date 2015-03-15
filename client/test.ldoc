@@ -1,0 +1,36 @@
+title = "Nyikit Market"
+tagline = "Business Plan"
+[settings]
+  template = """
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <button class="btn-block btn btn-primary">We made it!</button>
+        {{toc}}
+      </div>
+      <div class="col-sm-9">
+        {{content}}
+      </div>
+    </div>
+  </div>"""
+
+[doc]
+  welcome = """
+    <div class="jumbotron">
+      <h1>{{title}}</h1>
+      <p>{{tagline}}</p>
+      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+    </div>
+    """
+  introduction = """!md
+  # Welcome to Logic Doc Test!
+
+  As you can see this is a neat little thingy :)
+
+  """
+
+
+  code-test = "Hello! :P"
+  [someJson]
+    test = true
+    value = "myKey!"
