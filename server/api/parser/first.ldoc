@@ -1,0 +1,7 @@
+title = "First Logic Doc"
+
+[test]
+  content = """
+    This is the first example of a Logic Document.
+    It uses TOML as the storage medium of the raw document.
+    """
