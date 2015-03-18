@@ -1,0 +1,35 @@
+body {
+    position: relative;
+  }
+  .toc {
+    .affix-bottom {
+      position: absolute;
+    }
+  }
+  ul.nav {
+    li > ul.nav {
+      padding-left: 1em;
+    }
+    > li {
+      a {
+        padding: 2px 5px;
+        border-radius: 2px;
+        color: #4A89DC;
+      }
+      &.active > a {
+        background: #CCD1D9;
+        color: #434A54;
+      }
+      > a:hover {
+        background: #4A89DC;
+        color: #FFF;
+      }
+    }
+  }
+  section {
+    &:first-child {
+      min-height: 50vh;
+    }
+    min-height: 90vh;
+  }
+  

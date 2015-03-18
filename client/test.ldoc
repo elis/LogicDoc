@@ -1,36 +1,211 @@
 title = "Nyikit Market"
 tagline = "Business Plan"
+[doc]
+
+  introduction = """!md
+  # Introduction
+
+  Everything is made of __something__. Clocks are made of hundreds cogs and screws, software is built from many different peices of code, and no party is complete without a long list of technicians, producers, DJs, and bartenders.
+
+  Nyikit introduces a noval way of doing business, adapting several high level concepts from successful products to create a new commerce platform that mimics how materials and economics behave in real life to reduce friction to a minimum.
+
+  Our vision of the world of tomorrow is of frictionless business operations done a grand scale powered by the crowd for the crowd, delivering not just better experience but also reduced costs and effecient production cycles.
+  """
+
+  concepts = """!md
+  # Concepts  
+
+  The novelty of the platform arises not from it's complexity, but from it's simplicity combined with powerful capabilities.
+
+  With just a handful of concepts Nyikit is ready to disrupt the commerce space and introduce powerful tools for the consumers and the producers alike.
+
+  Let's begin exploring the building blocks that make Nyikit;
+  """
+
+  item = """!md
+  ## Item
+
+  The `Item` is the most basic of Nyikit's building blocks - it is the element that users create, modify, sell or buy.
+
+  At it's most basic form, the `Item` contains very simple information; primarily the name, description, owner, dependency items, and relevant contracts.
+
+  Although quite simple on their own, items can be very powerful once combined with the concepts of [dependency items](#item-dependencies) and [collections](#collections).
+
+  ### Item Sale
+  Items cannot be sold directly, they can only be sold through a collection, a shop, or as a dependency of another item.
+
+  Items can be sold as a 'one off' sale, for something like a physical item, such as a Playstation game console, or as 'subscription' payment, for something like video subscription service, or as a 'milestone' payment, for something like a project that has a budget that is released to the seller according to milestones, dates, or a user action.
+
+  """
+
+  item-dependencies = """!md
+  ## Item Dependencies
+
+  Items can be bought and sold, they also can be bundled with other items and receive a portion of the sale. We call this Item Dependency, one item can be dependant on other items when sold with ease and comfort.
+
+  Once an item has been added to another item as a dependency it will receive ceetain percentage or flat fee for every sale of the item that depends on it.
+
+  This behaviour extends all the way through making it possible to create many different combinations of items.
+
+  To illustrate this consider the following scenario: {{todo:Create Scenario}}.
+
+  """
+
+  shops = """!md
+  ## Shops
+
+  Shops are user created and managed lists (collections) of items. They provide a way of shocasing items in certain categories or topics.
+
+
+
+  """
+
+  collections = """!md
+  ## Collections
+  Collections are community created and managed collections of items.
+
+  Collections provide a way to tag and categorize items, as collection specialize in certain subject areas or topics, items can be submitted to collection to create a feed of items that are relevant to that subject.
+
+  ### Item Contract
+  Items that are sold through a collection will always have an associated contract attached that dictates what percentage of the sale is attributed to the collection.
+
+  All items within a collection must abide to the same `Item & Collection` contract.
+
+  ### Administration
+  A collection is administrated initially by the user(s) who created it, and additionally by any other user that are added to the administration list.
+
+  ### Arbitration
+  Items being sold through a collection have an associated Arbitrator attached to them.
+
+  Collection managers may provide a list of default arbitrators, may allow buying items with either only collection-approved arbitrators or to any arbitrator agreed by the seller and the buyer.    
+  """
+
+  users = """!md
+  ## Users
+  Users in Nyikit can create and sell items, 
+  """
+
+  illustrations = """!md
+
+  """
+
+#  .d8888b.           888    888    d8b                            
+# d88P  Y88b          888    888    Y8P                            
+# Y88b.               888    888                                   
+#  "Y888b.    .d88b.  888888 888888 888 88888b.   .d88b.  .d8888b  
+#     "Y88b. d8P  Y8b 888    888    888 888 "88b d88P"88b 88K      
+#       "888 88888888 888    888    888 888  888 888  888 "Y8888b. 
+# Y88b  d88P Y8b.     Y88b.  Y88b.  888 888  888 Y88b 888      X88 
+#  "Y8888P"   "Y8888   "Y888  "Y888 888 888  888  "Y88888  88888P' 
+#                                                     888          
+#                                                Y8b d88P          
+#                                                 "Y88P"           
+
 [settings]
   template = """
   <div class="container">
     <div class="row">
-      <div class="col-sm-3">
-        <button class="btn-block btn btn-primary">We made it!</button>
-        {{toc}}
-      </div>
-      <div class="col-sm-9">
-        {{content}}
+      <div class="col-sm-10 col-sm-offset-1">
+        {{header}}
+        <div class="row">
+
+          <div class="col-sm-8">
+            {{content}}
+          </div>
+
+          <div class="col-sm-4">
+            {{toc}}
+          </div>
+
+        </div>
       </div>
     </div>
-  </div>"""
+  </div>
+  {{footer}}"""
 
-[doc]
-  welcome = """
-    <div class="jumbotron">
-      <h1>{{title}}</h1>
-      <p>{{tagline}}</p>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-    </div>
-    """
-  introduction = """!md
-  # Welcome to Logic Doc Test!
 
-  As you can see this is a neat little thingy :)
+[keep]
+  item-depencies-scenario-1 = """!md
 
+  Item dependencies are used to create supply and manufacturing chains.
+
+  Any item in the system maybe be used as a `dependency item` for another item.
+
+  Suppose `Item A` - is a small raw wood supplier in Bangor, Maine. He supplies raw wood materials to neighboughring wood processing plants, and occassionally sells it directly to anyone who needs it.
+
+  Suppose `Item B` is a wood processing plant also located in the outskirts of Bangor, Maine. They produce proccessed lumber for wood workshops.
+
+  Suppose `Item C` is a family operated furniture factory that focuses on butique living room and bedroom furnituring.
+
+  All three items need each other to sustain their business, so they work very hard on creating and maintainig business relationships with one another and their competitors.
+
+  Without Nyikit they are working constantly on finding and establishing those business relationships. They scour the internet for relevant companies and their website, they go to weekend meet-and-greet business saloons, and they keep a ton of business cards, paperwork, and email correspondance with a number of different busiensses that can help them grow their own.
+
+  With Nyikit, they created a new item, `Item D` which is a beautiful living room set that is composed of all the previously mentioned items in the following way:
+
+  ```
+  Item D - Living Room Set
+    |
+    |- Item C1 - 3 seats couch
+    |   |- Item B - Proceessed Lumber
+    |       |- Item A - Raw Lumber
+    |
+    |- Item C2 - 2 seats couch
+    |   |- Item B - Proceessed Lumber
+    |       |- Item A - Raw Lumber
+    |
+    |- Item C3 - Coffee Table
+        |- Item B - Proceessed Lumber
+            |- Item A - Raw Lumber
+     
+  ```
   """
 
+[partials]
+  header = """
+    <div class="jumbotron">
+      <div class="container">
+        <h1>{{title}}</h1>
+        <p>{{tagline}}</p>
+      </div>
+    </div>
+    """
 
-  code-test = "Hello! :P"
-  [someJson]
-    test = true
-    value = "myKey!"
+  todo = "<label class=\"label label-danger\">{{transclude}}</label>"
+
+  footer = """
+  <div class="footer">
+    <div class="container">
+      <div class="clearfix">
+        <div class="footer-logo"><a href="#">Grid CT</a></div>
+        <dl class="footer-nav">
+          <dt class="nav-title">PORTFOLIO</dt>
+          <dd class="nav-item"><a href="#">Web Design</a></dd>
+          <dd class="nav-item"><a href="#">Branding &amp; Identity</a></dd>
+          <dd class="nav-item"><a href="#">Mobile Design</a></dd>
+          <dd class="nav-item"><a href="#">Print</a></dd>
+          <dd class="nav-item"><a href="#">User Interface</a></dd>
+        </dl>
+        <dl class="footer-nav">
+          <dt class="nav-title">ABOUT</dt>
+          <dd class="nav-item"><a href="#">The Company</a></dd>
+          <dd class="nav-item"><a href="#">History</a></dd>
+          <dd class="nav-item"><a href="#">Vision</a></dd>
+        </dl>
+        <dl class="footer-nav">
+          <dt class="nav-title">GALLERY</dt>
+          <dd class="nav-item"><a href="#">Flickr</a></dd>
+          <dd class="nav-item"><a href="#">Picasa</a></dd>
+          <dd class="nav-item"><a href="#">iStockPhoto</a></dd>
+          <dd class="nav-item"><a href="#">PhotoDune</a></dd>
+        </dl>
+        <dl class="footer-nav">
+          <dt class="nav-title">CONTACT</dt>
+          <dd class="nav-item"><a href="#">Basic Info</a></dd>
+          <dd class="nav-item"><a href="#">Map</a></dd>
+          <dd class="nav-item"><a href="#">Conctact Form</a></dd>
+        </dl>
+      </div>
+      <div class="footer-copyright text-center">Copyright © 2014 Flathemes.All rights reserved.</div>
+    </div>
+  </div>"""

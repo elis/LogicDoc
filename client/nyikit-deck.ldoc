@@ -1,0 +1,186 @@
+title = "Nyikit Deck"
+
+[doc]
+  elevator-pitch = """!md
+  ### Elevator Pitch
+
+  Nyikit lets you sell products and services easily and quickly. It also lets anyone to create collections of items based on categories or topics, and shop fronts that aggregate products in unique ways.
+
+  Sellers and service providers can easily showcase their products on a custom profile page.
+
+  Nyikit is community driven hub for anything commerce.
+  """
+
+  summary = """!md
+  # Summary
+  Nyikit is a novel marketplace fit for the 21st century. It empowers all the particpants in a financial transaction with cutting modern tools and utilities.
+
+  The novelty of Nyikit's marketplaces is two folds; 
+
+  It lets anyone sells anything be it products, services, or a mix and match of both and additionally products may be sold in bundles, or as dependencies of one another allowing the creation of supply chains.
+
+  It also introduces aggregation and curation of products and services in the form of Collections and Shops that are both user created and managed. 
+
+  Collections are communities where registered users can submit products or services, and then vote said products or service "up" or "down" to organize the submissions and determine their position on the collection's page.
+
+  Shops are cummunities where shop creators can fine tune how products and services are listed on their pages.
+
+  User profiles are provided to users to communicate with their customers, profiles can be customized with a profile picture, cover art, and a feed of their recent activity (e.g. product submissions to collections and shops).
+
+  """
+
+  team = """!md
+  # Team
+
+  ## Gil
+  Gil Moshayof is our ninja developer with an endless list of abilities. Gil is currently employed as mobile dev specialist at Wix.
+
+  ## Sharon
+  Sharon Lenger is our community and marketing expert. Sharon brings her ability to communicate to the masses after several years of hosting several TV shows on the Israeli television.
+
+  ## Eli
+  Eli Sklar is the visionary entreprenour behind Nyikit. Eli comes from a backgroun of 10 years in web development and enjoyes hacking different technologies together.
+
+  """
+
+
+  problemA = """!md
+  # The State of The Art
+  <h2><small><i>or</i> What's Wrong with Today's Commerce</small></h2>
+  While many fields in our daily lives have advanced greatly in the past couple of decades, many other field remain almost unchanged, some of them unchanged for centuries and millenia.
+
+  One such field is the field Commerce at large. Humans do business today almost exactly like it was done ten thousand years ago.
+
+  Even though we have eBay and Amazon to boast, the way business part is done and the way consumers discover a product remained in the dark ages and still rely on heavy leg work by the producers of goods and marketers and resellers that sell them.
+
+  Supply chains and multi-faceted products are still essentially done the same way - two people meet, discuss a deal, involve their attornies to create a deal, they both sign it, and then they both *hope* that both sides fulfill their end of the deal as agreed.
+
+  On the other hand consumers are flooded with choices in an everly growing maze of *(miss)*information that when not neglected to be addressed is partially solved with small communities of specialists and enthusiasts in esoteric or closed forums usually unreachable by the general public.
+  """
+[settings]
+  template = """
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+        {{header}}
+        <div class="row" data-spy="affix" data-offset-top="60" >
+
+          <div class="col-sm-8">
+            {{content}}
+          </div>
+
+          <div class="col-sm-4">
+            <div class="toc">
+              {{toc}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  {{footer}}
+  <script>
+  $(function() {
+    $('.toc').css('width', $('.toc').width());
+    $('.toc').affix({
+      offset: {
+        top: 100,
+    bottom: function () {
+      console.log('calculating height...', $('.footer').outerHeight(true));
+      return $('.footer').outerHeight(true);
+    }
+  }
+      });
+    $('.toc ul').addClass('nav nav-pills nav-stacked');
+    $('body').scrollspy({ target: '.toc', offset: 100 });
+    });
+  </script>"""
+
+  prepend = "<section>"
+  append = "</section>"
+
+  style = """!scss
+  body {
+    position: relative;
+  }
+  .toc {
+    .affix-bottom {
+      position: absolute;
+    }
+  }
+  ul.nav {
+    li > ul.nav {
+      padding-left: 1em;
+    }
+    > li {
+      a {
+        padding: 2px 5px;
+        border-radius: 2px;
+        color: #4A89DC;
+      }
+      &.active > a {
+        background: #CCD1D9;
+        color: #434A54;
+      }
+      > a:hover {
+        background: #4A89DC;
+        color: #FFF;
+      }
+    }
+  }
+  section {
+    &:first-child {
+      min-height: 50vh;
+    }
+    min-height: 90vh;
+  }
+  """
+[partials]
+  header = """
+    <div class="jumbotron">
+      <div class="container">
+        <h1>{{title}}</h1>
+        <p>{{tagline}}</p>
+      </div>
+    </div>
+    """
+
+  todo = "<label class=\"label label-danger\">{{transclude}}</label>"
+
+  footer = """
+  <div class="footer">
+    <div class="container">
+      <div class="clearfix">
+        <div class="footer-logo"><a href="#">Grid CT</a></div>
+        <dl class="footer-nav">
+          <dt class="nav-title">PORTFOLIO</dt>
+          <dd class="nav-item"><a href="#">Web Design</a></dd>
+          <dd class="nav-item"><a href="#">Branding &amp; Identity</a></dd>
+          <dd class="nav-item"><a href="#">Mobile Design</a></dd>
+          <dd class="nav-item"><a href="#">Print</a></dd>
+          <dd class="nav-item"><a href="#">User Interface</a></dd>
+        </dl>
+        <dl class="footer-nav">
+          <dt class="nav-title">ABOUT</dt>
+          <dd class="nav-item"><a href="#">The Company</a></dd>
+          <dd class="nav-item"><a href="#">History</a></dd>
+          <dd class="nav-item"><a href="#">Vision</a></dd>
+        </dl>
+        <dl class="footer-nav">
+          <dt class="nav-title">GALLERY</dt>
+          <dd class="nav-item"><a href="#">Flickr</a></dd>
+          <dd class="nav-item"><a href="#">Picasa</a></dd>
+          <dd class="nav-item"><a href="#">iStockPhoto</a></dd>
+          <dd class="nav-item"><a href="#">PhotoDune</a></dd>
+        </dl>
+        <dl class="footer-nav">
+          <dt class="nav-title">CONTACT</dt>
+          <dd class="nav-item"><a href="#">Basic Info</a></dd>
+          <dd class="nav-item"><a href="#">Map</a></dd>
+          <dd class="nav-item"><a href="#">Conctact Form</a></dd>
+        </dl>
+      </div>
+      <div class="footer-copyright text-center">Copyright © 2014 Flathemes.All rights reserved.</div>
+    </div>
+  </div>"""

@@ -7,6 +7,8 @@ var cache = {};
 var LogicDoc = {
   parse: function (source, tags, parentTag) {
     var result = source.replace(/\{\{(.*)\}\}/g, function (match, tag, offset, string) {
+      var colonizedTag = tag.split(':');
+
       if (tags[tag]) {
         if (typeof tags[tag] == 'function') {
           return tags[tag]();
@@ -14,10 +16,22 @@ var LogicDoc = {
         else if (typeof tags[tag] == 'string') {
           return LogicDoc.parse(tags[tag], tags, tag);
         }
+        // else if (typeof tags[tag] == 'object') {
+        //   _.forEach(tags[tag], function (item, index) {
+
+        //   })
+        // }
         else
           return tags[tag];
       }
-      return "{{ NOMATCH: "+tag+" }}";
+      else if (colonizedTag.length > 1) {
+        var transcludeString = colonizedTag[1],
+          tagName = colonizedTag[0];
+        if (tags[tagName] && typeof tags[tagName] == 'string') {
+          return LogicDoc.parse(tags[tagName], _.merge({}, tags, {transclude: transcludeString}));
+        }
+      }
+      return match; //"{{ NOMATCH: "+tag+" }}";
     });
 
     return result;
@@ -35,9 +49,10 @@ exports.index = function(req, res) {
       fs = require('fs');
 
   var templateFile = './client/app/ldoc/ldoc.html';
+  var templateStyle = './client/app/ldoc/ldoc';
 
   // var lraw = fs.readFileSync('./client/first.ldoc');
-  var lraw = fs.readFileSync('./client/test.ldoc');
+  var lraw = fs.readFileSync('./client/nyikit-deck.ldoc');
   var ldoc = toml.parse(lraw);
 
   if (ldoc.page) {
@@ -86,7 +101,7 @@ exports.index = function(req, res) {
 
       var fileData = fs.readFileSync(mainJSPath).toString();
       if (fileData != jsData) {
-        console.log("fileData != jsData, setting new.\n\ncache:\n", fileData, '\n\njsData:\n', jsData, '\n---------');
+        // console.log("fileData != jsData, setting new.\n\ncache:\n", fileData, '\n\njsData:\n', jsData, '\n---------');
         fs.writeFileSync(mainJSPath, jsData);
       }
 
@@ -96,14 +111,10 @@ exports.index = function(req, res) {
   }
   else if (ldoc.doc) {
     var templateData = '',
-      docContent = '';
-
-    if (ldoc.settings) {
-      if (ldoc.settings.template) {
-        templateData = ldoc.settings.template;
-      }
-    }
-
+      docContent = '',
+      markdownContent = '',
+      prepend = ldoc.settings.prepend || '',
+      append = ldoc.settings.append || '';
 
     _.forEach(ldoc.doc, function (item, key) {
         var colon = key.split(':');
@@ -111,7 +122,10 @@ exports.index = function(req, res) {
           if (typeof item == 'string') {
             if (item.substr(0,3) == '!md') {
               var marked = require('marked');
-              docContent += marked(item.replace(/^(!md\s*)/, ''));
+              var forMarked = item.replace(/^(!md\s*)/, '');
+              docContent += prepend + marked(forMarked) + append;
+              markdownContent += forMarked;
+
             } else
               docContent += item;
           } else {
@@ -120,15 +134,51 @@ exports.index = function(req, res) {
         } else {
           docContent += key + ": " + JSON.stringify(item, true);
         }
-    })
+    });
+
+    if (ldoc.settings) {
+      if (ldoc.settings.template) {
+        templateData = ldoc.settings.template;
+      }
+      if (ldoc.settings.style) {
+        var styleStr = ldoc.settings.style;
+        if (styleStr.substr(0, 1) == '!') {
+          var preproc = styleStr.match(/^!(\S+)\s/)[1],
+            styleStr = styleStr.replace('!' + preproc, '').replace(/^(\s+)/,'');
+            console.log('=========\n\npre process with:', preproc, '\nthis style:\n', styleStr);
+          var curStyle = fs.readFileSync(templateStyle + '.' + preproc).toString();
+          if (curStyle != styleStr)
+            fs.writeFileSync(templateStyle + '.' + preproc, styleStr);
+        }
+      }
+    }
+
 
     if (templateData) {
-      var tags = _.merge({}, ldoc);
+      var marked = require('marked');
+      var toc = require('markdown-toc');
+      var myToc = toc(markdownContent).content;
+      myToc = marked(toc.linkify(myToc).replace(/^(\s+)/, ''));
+
+      // console.log('my myToc:', myToc);
+      var tags = _.merge({toc: myToc}, ldoc);
+      if (ldoc.partials) {
+        _.forEach(ldoc.partials, function (item, index) {
+          // console.log('found partial:', index, item);
+          if (typeof item == 'string') {
+            tags[index] = LogicDoc.parse(item, tags);
+          }
+        })
+      }
+      // console.log('docContent:', docContent);
       tags.content = docContent;
 
+      // // console.log('\n\n===================\n\navailable tags:', tags, '\n----------------');
       docContent = LogicDoc.parse(templateData, tags);
 
-      fs.writeFileSync(templateFile, docContent);
+      var curContent = fs.readFileSync(templateFile).toString();
+      if (curContent != docContent)
+        fs.writeFileSync(templateFile, docContent);
     }
 
       res.sendfile('./client/index.html');
